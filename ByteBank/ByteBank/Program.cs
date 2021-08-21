@@ -14,12 +14,17 @@ namespace ByteBank
             {
                 Metodo();
             }
-            catch (NullReferenceException erro)
+            catch (DivideByZeroException e)
             {
-                Console.WriteLine(erro.StackTrace);
+                Console.WriteLine("Não é possível divisão por zero.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Aconteceu um erro.");
             }
-            
+
+
             Console.ReadLine();
         }
 
@@ -27,34 +32,31 @@ namespace ByteBank
         //Metodo -> TestaDivisao ->d Dividir
         private static void Metodo()
         {
-            TestaDivisao(10);
+            TestaDivisao(0);
         }
 
         private static void TestaDivisao(int divisor)
         {
 
-            try
-            {
-                int resultado = Dividir(10, divisor);
+            int resultado = Dividir(10, divisor);
+            Console.WriteLine("Resultado da divisão de 10 por " + divisor + " é " + resultado);
 
-                Console.WriteLine("Resultado da divisão de 10 por " + divisor + " é " + resultado);
-            }
-            catch (DivideByZeroException erro)
-            {
-                Console.WriteLine(erro.Message);
-                Console.WriteLine("Não é possível fazer uma divisão por 0!");
-            }
-            
-
-            
         }
 
         private static int Dividir(int numero, int divisor)
         {
-           // ContaCorrente conta = null;
-           // Console.WriteLine(conta.Saldo);
 
-            return numero / divisor;
+            try
+            {
+                return numero / divisor;
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Execeção com número = " + numero + " e divisor = " + divisor);
+
+                throw;
+            }
+
         }
     }
 }
