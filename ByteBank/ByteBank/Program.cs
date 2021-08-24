@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,63 @@ namespace ByteBank
         {
             try
             {
+                CarregarContas();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("CATCH NO METODO MAIN");
+            }
+            
 
-                ContaCorrente conta = new ContaCorrente(456,457840);
+            Console.WriteLine("Execução finalizada. Tecle enter para sair");
+
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+            using(LeitorDeArquivo leitor = new LeitorDeArquivo("teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
+
+            //--------------------------------------
+
+            //LeitorDeArquivo leitor = null;
+
+            //try
+            //{
+            //    leitor = new LeitorDeArquivo("contas.txt");
+            //    leitor.LerProximaLinha();
+
+            //}
+            //catch (IOException)
+            //{
+            //    Console.WriteLine("Exceção do tipo IOException capturada e tratada!");
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Executando o finally");
+
+            //    if(leitor != null)
+            //    {
+            //        leitor.Fechar();
+            //    }
+                
+            //}
+
+
+        }
+
+        private void TestaInnerException()
+        {
+            try
+            {
+
+                ContaCorrente conta = new ContaCorrente(456, 457840);
                 ContaCorrente contaDois = new ContaCorrente(485, 45678);
 
-               /// contaDois.Transferir(100000000, conta);
+                /// contaDois.Transferir(100000000, conta);
                 contaDois.Sacar(10000000);
 
                 /* conta.Depositar(50);
@@ -30,11 +83,11 @@ namespace ByteBank
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
 
-               /* Console.WriteLine("");
+                /* Console.WriteLine("");
 
-                Console.WriteLine("Informações de INNER EXCPETION (exceção interna)");
-                Console.WriteLine(ex.InnerException);
-                Console.WriteLine(ex.StackTrace);*/
+                 Console.WriteLine("Informações de INNER EXCPETION (exceção interna)");
+                 Console.WriteLine(ex.InnerException);
+                 Console.WriteLine(ex.StackTrace);*/
 
             }
             /*
@@ -61,10 +114,6 @@ namespace ByteBank
 
 
             //Metodo();
-
-            Console.WriteLine("Execução finalizada. Tecle enter para sair");
-
-            Console.ReadLine();
         }
 
         //Teste com a cadeia de chamada:
